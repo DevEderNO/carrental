@@ -10,7 +10,7 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String index(CarrentalApplication application) {
-		return application != null ? "/index" : "/index";
+		return "/index";
 	}
 	
 }

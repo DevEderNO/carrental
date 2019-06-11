@@ -44,7 +44,7 @@
 					<tr th:each="motorista : ${motoristas}">
 						<td align="center" th:text="${motorista.id}"></td>
 						<td th:text="${motorista.nome}"></td>
-						<td th:text="${motorista.sexo}"></td>
+						<td th:text="${motorista.sexo.descricao}"></td>
 						<td th:text="${motorista.cpf}"></td>
 						<td th:text="${motorista.cnh}"></td>
 						<td align="center">

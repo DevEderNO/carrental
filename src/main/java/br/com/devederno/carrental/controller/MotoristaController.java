@@ -19,7 +19,7 @@ import br.com.devederno.carrental.model.type.Sexo;
 import br.com.devederno.carrental.repository.MotoristaRepository;
 
 @Controller
-@RequestMapping(name = "/motoristas")
+@RequestMapping("/motoristas")
 public class MotoristaController {
 
 	private final static String MOTORISTAS = "motoristas";

@@ -11,6 +11,8 @@
 
 <body class="jumbotron">
 
+	<div th:replace="fragments/header :: header" />
+
 	<div class="container">
 		<h1 class="form-group" align="center">Cadastro de Motoristas</h1>
 
@@ -39,13 +41,12 @@
 					<input id="cpf" type="text" th:field="*{cpf}" class="form-control form-control-sm" />
 					<label for="cnh">CNH:</label> 
 					<input id="cnh" type="text" th:field="*{cnh}" class="form-control form-control-sm" />
-					<div class="form-group col-md-3">
-						<label for="sexo">Sexo:</label> <select name="sexo"
-							id="sexo" th:field="*{sexo}" class="form-control">
-							<option th:each="sexo : ${listarTodosSexos}"
-								th:text="${sexo.descricao}" th:value="${sexo}"></option>
-						</select>
-					</div>
+					<label for="sexo">Sexo:</label> 
+					<select name="sexo"
+						id="sexo" th:field="*{sexo}" class="form-control form-control-sm col-md-2">
+						<option th:each="sexo : ${listarTodosSexos}"
+							th:text="${sexo.descricao}" th:value="${sexo}"></option>
+					</select>
 				</div>
 
 
