@@ -24,6 +24,7 @@ import br.com.devederno.carrental.repository.ModeloRepository;
 @RequestMapping("/carros")
 public class CarroController {
 
+	private static final String CARROS = "carros";
 	private final static String CARRO_CADASTRO = "carro-cadastro";
 	private final static String CARRO_LISTA = "carro-lista";
 	private final static String NOVO = "/novo";
@@ -42,7 +43,7 @@ public class CarroController {
 	}
 	
 	@ModelAttribute(name = "listarTodosModelos")
-	public List<Modelo> listarTodos(){
+	public List<Modelo> listarTodosModelos(){
 		return modeloRepository.findAll();
 	}
 	
@@ -60,13 +61,13 @@ public class CarroController {
 			redirectAttributes.addFlashAttribute("mensagem","Alteração realizada com sucesso");
 		}
 		
-		return new ModelAndView("redirect:/carros");
+		return new ModelAndView("redirect:"+CARROS);
 	}
 	
 	@GetMapping
 	public ModelAndView lista(){
 		ModelAndView modelAndView = new ModelAndView(CARRO_LISTA);
-		modelAndView.addObject("carros",carroRepository.findAll());
+		modelAndView.addObject(CARROS,carroRepository.findAll());
 		return modelAndView;
 	}
 	
@@ -79,7 +80,7 @@ public class CarroController {
 	
 	@GetMapping("/excluir/{id}")
 	public ModelAndView excluir(@PathVariable("id") Long id){
-		ModelAndView modelAndView = new ModelAndView("redirect:/carros");
+		ModelAndView modelAndView = new ModelAndView("redirect:"+CARROS);
 		carroRepository.deleteById(id);
 		return modelAndView;
 	}
