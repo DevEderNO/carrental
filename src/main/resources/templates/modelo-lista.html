@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Cadastro de Fabricantes</title>
+<title>Cadastro de Modelos</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -19,44 +19,43 @@
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
 </head>
-
 <body class="jumbotron">
 
 	<div th:replace="fragments/header :: header" />
 
 	<div class="container">
-		<h1 class="form-group" align="center">Cadastro de Fabricantes</h1>
+		<div class="center" align="center">
+			<h1>Lista de Modelos</h1>
+		</div>
 
 		<div>
-			<form action="/fabricantes" method="POST" th:object="${fabricante}">
-
-				<!-- Message Error -->
-				<div th:if="${#fields.hasAnyErrors()}">
-					<div th:each="erros : ${#fields.detailedErrors()}"
-						class="alert alert-danger">
-						<span th:text="${erros.message}"></span>
-					</div>
-				</div>
-
-				<!-- Message Success -->
-				<div th:if="${!#strings.isEmpty(mensagem)}"
-					class="alert alert-success">
-					<span th:text="${mensagem}"></span>
-				</div>
-
-				<input type="hidden" th:field="*{id}" />
-				<div class="form-group">
-					<label for="nome">Nome:</label> 
-					<input id="nome" type="text" th:field="*{nome}" class="form-control form-control-sm" />
-					<label for="nome">Descrição:</label> 
-					<input id="nome" type="text" th:field="*{descricao}" class="form-control form-control-sm" />
-				</div>
-
-
-				<button type="submit" class="btn btn-primary">Salvar</button>
-			</form>
+			<table class="table table-hover table-bordered table-sm">
+				<thead class="thead-dark">
+					<tr align="center">
+						<th scope="col">Id</th>
+						<th scope="col">Descrição</th>
+						<th scope="col">Categoria</th>
+						<th scope="col">Fabricante</th>
+						<th scope="col">Ação</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="modelo : ${modelos}">
+						<td align="center" th:text="${modelo.id}"></td>
+						<td th:text="${modelo.descricao}"></td>
+						<td th:text="${modelo.categoria.descricao}"></td>
+						<td th:text="${modelo.fabricante.nome}"></td>
+						<td align="center"><a class="btn btn-primary btn-sm"
+							th:href="@{modelos/editar/{id}(id=${modelo.id})}">Editar</a>
+							<a class="btn btn-danger btn-sm"
+							th:href="@{modelos/excluir/{id}(id=${modelo.id})}">Excluir</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
+
 	<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

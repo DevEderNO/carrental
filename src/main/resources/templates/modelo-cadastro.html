@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Cadastro de Fabricantes</title>
+<title>Cadastro de Modelos</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -25,10 +25,10 @@
 	<div th:replace="fragments/header :: header" />
 
 	<div class="container">
-		<h1 class="form-group" align="center">Cadastro de Fabricantes</h1>
+		<h1 class="form-group" align="center">Cadastro de Modelos</h1>
 
 		<div>
-			<form action="/fabricantes" method="POST" th:object="${fabricante}">
+			<form action="/modelos" method="POST" th:object="${modelo}">
 
 				<!-- Message Error -->
 				<div th:if="${#fields.hasAnyErrors()}">
@@ -46,10 +46,23 @@
 
 				<input type="hidden" th:field="*{id}" />
 				<div class="form-group">
-					<label for="nome">Nome:</label> 
-					<input id="nome" type="text" th:field="*{nome}" class="form-control form-control-sm" />
-					<label for="nome">Descrição:</label> 
-					<input id="nome" type="text" th:field="*{descricao}" class="form-control form-control-sm" />
+					<label for="descricao">Descrição:</label> 
+					<input id="descricao" type="text" th:field="*{descricao}" class="form-control form-control-sm" />
+					
+					<label for="categoria">Categoria:</label> 
+					<select name="categoria"
+						id="categoria" th:field="*{categoria}" class="form-control form-control-sm col-md-2">
+						<option th:each="categoria : ${listarTodasCategorias}"
+							th:text="${categoria.descricao}" th:value="${categoria}">
+						</option>
+					</select>
+					
+					<label for="fabricante">Fabricante:</label> 
+					<select name="fabricante"
+						id="fabricante" th:field="*{fabricante}" class="form-control form-control-sm col-md-2">
+						<option th:each="fabricante : ${listarTodosFabricantes}"
+							th:text="${fabricante.nome}" th:value="${fabricante.id}"></option>
+					</select>
 				</div>
 
 
@@ -57,6 +70,8 @@
 			</form>
 		</div>
 	</div>
-	<div th:replace="fragments/footer :: footer"/>
+	<div class="footer">
+		<div th:replace="fragments/footer :: footer"/>
+	</div>
 </body>
 </html>
