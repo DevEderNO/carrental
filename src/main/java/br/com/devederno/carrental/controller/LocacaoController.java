@@ -1,5 +1,6 @@
 package br.com.devederno.carrental.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -44,7 +45,10 @@ public class LocacaoController {
 	@RequestMapping(NOVO)
 	public ModelAndView novo() {
 		ModelAndView modelAndView = new ModelAndView(LOCACAO_CADASTRO);
-		modelAndView.addObject(new Locacao());
+		Locacao locacao = new Locacao();
+		locacao.setDataDeLocacao(LocalDate.now());
+		locacao.setDataDeDevolucao(LocalDate.now());
+		modelAndView.addObject(locacao);
 		return modelAndView;
 	}
 	
@@ -73,7 +77,7 @@ public class LocacaoController {
 			redirectAttributes.addFlashAttribute("mensagem", "Alteração realizada com sucesso");
 		}
 
-		return new ModelAndView("redirect:/"+LOCACOES);
+		return new ModelAndView("redirect:/"+LOCACOES + "/" + NOVO);
 	}
 
 	@GetMapping

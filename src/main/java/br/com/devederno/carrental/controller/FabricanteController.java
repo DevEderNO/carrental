@@ -50,7 +50,7 @@ public class FabricanteController {
 			redirectAttributes.addFlashAttribute("mensagem", "Alteração realizada com sucesso");
 		}
 
-		return new ModelAndView("redirect:/"+FABRICANTES);
+		return new ModelAndView("redirect:/"+FABRICANTES + "/" + NOVO);
 	}
 
 	@GetMapping

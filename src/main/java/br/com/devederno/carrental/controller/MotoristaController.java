@@ -57,7 +57,7 @@ public class MotoristaController {
 			redirectAttributes.addFlashAttribute("mensagem", "Alteração realizada com sucesso");
 		}
 
-		return new ModelAndView("redirect:/"+MOTORISTAS);
+		return new ModelAndView("redirect:/"+MOTORISTAS + "/" + NOVO);
 	}
 
 	@GetMapping

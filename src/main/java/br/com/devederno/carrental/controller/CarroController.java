@@ -63,7 +63,7 @@ public class CarroController {
 			redirectAttributes.addFlashAttribute("mensagem","Alteração realizada com sucesso");
 		}
 		
-		return new ModelAndView("redirect:/"+CARROS);
+		return new ModelAndView("redirect:/"+CARROS + "/" + NOVO);
 	}
 	
 	@GetMapping

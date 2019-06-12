@@ -69,7 +69,7 @@ public class ModeloControle {
 			redirectAttributes.addFlashAttribute("mensagem", "Alteração realizada com sucesso");
 		}
 
-		return new ModelAndView("redirect:/" + MODELOS);
+		return new ModelAndView("redirect:/" + MODELOS + "/" + NOVO);
 	}
 
 	@GetMapping

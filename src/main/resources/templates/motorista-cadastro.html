@@ -9,29 +9,21 @@
 <script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"	crossorigin="anonymous"></script>
 </head>
 
-<body class="jumbotron">
+<body class="">
 
 	<div th:replace="fragments/header :: header" />
 
 	<div class="container">
-		<h1 class="form-group" align="center">Cadastro de Motoristas</h1>
+		<h1 class="display-4" align="center">Cadastro de Motoristas</h1>
 
+		
 		<div>
 			<form action="/motoristas" method="POST" th:object="${motorista}">
+				
 
-				<!-- Message Error -->
-				<div th:if="${#fields.hasAnyErrors()}">
-					<div th:each="erros : ${#fields.detailedErrors()}"
-						class="alert alert-danger">
-						<span th:text="${erros.message}"></span>
-					</div>
-				</div>
+				<div th:replace="fragments/alert-error :: div" />
 
-				<!-- Message Success -->
-				<div th:if="${!#strings.isEmpty(mensagem)}"
-					class="alert alert-success">
-					<span th:text="${mensagem}"></span>
-				</div>
+				<div th:replace="fragments/alert-sucsses :: div" />
 
 				<input type="hidden" th:field="*{id}" />
 				<div class="form-group">
@@ -49,10 +41,12 @@
 					</select>
 				</div>
 
-
 				<button type="submit" class="btn btn-primary">Salvar</button>
 			</form>
 		</div>
+	</div>
+	<div class="footer mt-auto py-3" align="center">
+			<div class="container" th:replace="fragments/footer :: footer" />
 	</div>
 </body>
 </html>

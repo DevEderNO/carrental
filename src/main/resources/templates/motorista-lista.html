@@ -19,13 +19,13 @@
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
 </head>
-<body class="jumbotron">
+<body class="">
 
 	<div th:replace="fragments/header :: header" />
 
 	<div class="container">
 		<div class="center" align="center">
-			<h1>Lista de Motorista</h1>
+			<h1 class="display-4">Lista de Motorista</h1>
 		</div>
 
 		<div>
@@ -44,9 +44,9 @@
 					<tr th:each="motorista : ${motoristas}">
 						<td align="center" th:text="${motorista.id}"></td>
 						<td th:text="${motorista.nome}"></td>
-						<td th:text="${motorista.sexo.descricao}"></td>
-						<td th:text="${motorista.cpf}"></td>
-						<td th:text="${motorista.cnh}"></td>
+						<td align="center" th:text="${motorista.sexo.descricao}"></td>
+						<td align="center" th:text="${motorista.cpf}"></td>
+						<td align="center" th:text="${motorista.cnh}"></td>
 						<td align="center">
 							<a class="btn btn-primary btn-sm" th:href="@{motoristas/editar/{id}(id=${motorista.id})}">Editar</a>
 							<a class="btn btn-danger btn-sm" th:href="@{motoristas/excluir/{id}(id=${motorista.id})}">Excluir</a>
@@ -55,6 +55,9 @@
 				</tbody>
 			</table>
 		</div>
+	</div>
+	<div class="footer mt-auto py-3" align="center">
+		<div class="container" th:replace="fragments/footer :: footer" />
 	</div>
 </body>
 </html>

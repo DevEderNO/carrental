@@ -1,0 +1,9 @@
+<!-- Message Error -->
+<div th:if="${#fields.hasAnyErrors()}">
+    <div th:each="erros : ${#fields.detailedErrors()}" class="alert alert-danger">
+        <span th:text="${erros.message}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>

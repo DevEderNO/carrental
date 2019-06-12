@@ -17,13 +17,13 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body class="jumbotron">
+<body class="">
 
     <div th:replace="fragments/header :: header" />
 
     <div class="container">
         <div class="center" align="center">
-            <h1>Lista de Modelos</h1>
+            <h1 class="display-4">Lista de Modelos</h1>
         </div>
 
         <div>
@@ -55,7 +55,9 @@
         </div>
     </div>
 
-    <div th:replace="fragments/footer :: footer" />
+    <div class="footer mt-auto py-3" align="center">
+        <div class="container" th:replace="fragments/footer :: footer" />
+    </div>
 </body>
 
 </html>

@@ -1,0 +1,7 @@
+<!-- Message Success -->
+<div th:if="${!#strings.isEmpty(mensagem)}"	class="alert alert-success">
+    <span th:text="${mensagem}"></span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>

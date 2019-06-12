@@ -20,29 +20,19 @@
 	crossorigin="anonymous"></script>
 </head>
 
-<body class="jumbotron">
+<body class="">
 
 	<div th:replace="fragments/header :: header" />
 
 	<div class="container">
-		<h1 class="form-group" align="center">Cadastro de Fabricantes</h1>
+		<h1 class="display-4" align="center">Cadastro de Fabricantes</h1>
 
 		<div>
 			<form action="/fabricantes" method="POST" th:object="${fabricante}">
 
-				<!-- Message Error -->
-				<div th:if="${#fields.hasAnyErrors()}">
-					<div th:each="erros : ${#fields.detailedErrors()}"
-						class="alert alert-danger">
-						<span th:text="${erros.message}"></span>
-					</div>
-				</div>
+				<div th:replace="fragments/alert-error :: div" />
 
-				<!-- Message Success -->
-				<div th:if="${!#strings.isEmpty(mensagem)}"
-					class="alert alert-success">
-					<span th:text="${mensagem}"></span>
-				</div>
+				<div th:replace="fragments/alert-sucsses :: div" />
 
 				<input type="hidden" th:field="*{id}" />
 				<div class="form-group">
@@ -57,6 +47,8 @@
 			</form>
 		</div>
 	</div>
-	<div th:replace="fragments/footer :: footer"/>
+	<div class="footer mt-auto py-1" align="center">
+		<div class="container" th:replace="fragments/footer :: footer" />
+	</div>
 </body>
 </html>
