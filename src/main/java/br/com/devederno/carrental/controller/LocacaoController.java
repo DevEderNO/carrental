@@ -11,12 +11,12 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.devederno.carrental.model.Carro;
-import br.com.devederno.carrental.model.Fabricante;
 import br.com.devederno.carrental.model.Locacao;
 import br.com.devederno.carrental.model.Motorista;
 import br.com.devederno.carrental.repository.CarroRepository;
@@ -27,7 +27,7 @@ import br.com.devederno.carrental.repository.MotoristaRepository;
 @RequestMapping("/locacoes")
 public class LocacaoController {
 	
-	private final static String LOCACOES = "/locacoes";
+	private final static String LOCACOES = "locacoes";
 	private final static String LOCACAO_CADASTRO = "locacao-cadastro";
 	private final static String LOCACAO_LISTA = "locacao-lista";
 	private final static String NOVO = "/novo";
@@ -44,7 +44,7 @@ public class LocacaoController {
 	@RequestMapping(NOVO)
 	public ModelAndView novo() {
 		ModelAndView modelAndView = new ModelAndView(LOCACAO_CADASTRO);
-		modelAndView.addObject(new Fabricante());
+		modelAndView.addObject(new Locacao());
 		return modelAndView;
 	}
 	
@@ -58,6 +58,7 @@ public class LocacaoController {
 		return carroRepository.findAll();
 	}
 
+	@PostMapping
 	public ModelAndView salvar(@Valid Locacao locacao, Errors errors, RedirectAttributes redirectAttributes) {
 
 		if (errors.hasErrors()) {
@@ -72,7 +73,7 @@ public class LocacaoController {
 			redirectAttributes.addFlashAttribute("mensagem", "Alteração realizada com sucesso");
 		}
 
-		return new ModelAndView("redirect:"+LOCACOES);
+		return new ModelAndView("redirect:/"+LOCACOES);
 	}
 
 	@GetMapping
@@ -91,7 +92,7 @@ public class LocacaoController {
 
 	@GetMapping("/excluir/{id}")
 	public ModelAndView excluir(@PathVariable("id") Long id) {
-		ModelAndView modelAndView = new ModelAndView("redirect:" + LOCACOES);
+		ModelAndView modelAndView = new ModelAndView("redirect:/" + LOCACOES);
 		locacaoRepository.deleteById(id);
 		return modelAndView;
 	}

@@ -11,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -47,6 +48,7 @@ public class CarroController {
 		return modeloRepository.findAll();
 	}
 	
+	@PostMapping
 	public ModelAndView salvar(@Valid Carro carro, Errors errors, RedirectAttributes redirectAttributes){
 		
 		if(errors.hasErrors()){
@@ -61,7 +63,7 @@ public class CarroController {
 			redirectAttributes.addFlashAttribute("mensagem","Alteração realizada com sucesso");
 		}
 		
-		return new ModelAndView("redirect:"+CARROS);
+		return new ModelAndView("redirect:/"+CARROS);
 	}
 	
 	@GetMapping
@@ -80,7 +82,7 @@ public class CarroController {
 	
 	@GetMapping("/excluir/{id}")
 	public ModelAndView excluir(@PathVariable("id") Long id){
-		ModelAndView modelAndView = new ModelAndView("redirect:"+CARROS);
+		ModelAndView modelAndView = new ModelAndView("redirect:/"+CARROS);
 		carroRepository.deleteById(id);
 		return modelAndView;
 	}

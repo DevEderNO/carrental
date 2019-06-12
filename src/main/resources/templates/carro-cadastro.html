@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de Carros</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+</head>
+
+<body class="jumbotron">
+
+	<div th:replace="fragments/header :: header" />
+
+	<div class="container">
+		<h1 class="form-group" align="center">Cadastro de Carros</h1>
+
+		<div>
+			<form action="/carros" method="POST" th:object="${carro}">
+
+				<!-- Message Error -->
+				<div th:if="${#fields.hasAnyErrors()}">
+					<div th:each="erros : ${#fields.detailedErrors()}"
+						class="alert alert-danger">
+						<span th:text="${erros.message}"></span>
+					</div>
+				</div>
+
+				<!-- Message Success -->
+				<div th:if="${!#strings.isEmpty(mensagem)}"
+					class="alert alert-success">
+					<span th:text="${mensagem}"></span>
+				</div>
+
+				<input type="hidden" th:field="*{id}" />
+				<div class="form-group">
+					<label for="placa">Placa:</label> 
+					<input id="placa" type="text" th:field="*{placa}" class="form-control form-control-sm" />
+
+					<label for="chassi">Chassi:</label> 
+					<input id="chassi" type="text" th:field="*{chassi}" class="form-control form-control-sm" />
+
+					<label for="valorDaDiaria">Valor da Diária:</label> 
+					<input id="valorDaDiaria" type="text" min="0.0" max="100000.0" step="0.01" th:field="*{valorDaDiaria}" class="form-control form-control-sm" />
+					
+					<label for="modelo">Modelo:</label> 
+					<select name="modelo"
+						id="modelo" th:field="*{modelo}" class="form-control form-control-sm col-md-2">
+						<option th:each="modelo : ${listarTodosModelos}"
+							th:text="${modelo.descricao}" th:value="${modelo.id}"></option>
+					</select>
+				</div>
+
+
+				<button type="submit" class="btn btn-primary">Salvar</button>
+			</form>
+		</div>
+	</div>
+	<div class="footer">
+		<div th:replace="fragments/footer :: footer"/>
+	</div>
+</body>
+</html>
