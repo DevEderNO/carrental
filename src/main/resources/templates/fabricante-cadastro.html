@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" class="h-100">
 <head>
 <meta charset="UTF-8">
 <title>Cadastro de Fabricantes</title>
@@ -20,34 +20,32 @@
 	crossorigin="anonymous"></script>
 </head>
 
-<body class="">
+<body class="d-flex flex-column h-100">
 
-	<div th:replace="fragments/header :: header" />
+	<header>
+		<div th:replace="fragments/header :: header" class="mt-auto"/>
+	</header>
 
-	<div class="container">
-		<h1 class="display-4" align="center">Cadastro de Fabricantes</h1>
-
-		<div>
-			<form action="/fabricantes" method="POST" th:object="${fabricante}">
-
-				<div th:replace="fragments/alert-error :: div" />
-
-				<div th:replace="fragments/alert-sucsses :: div" />
-
-				<input type="hidden" th:field="*{id}" />
-				<div class="form-group">
-					<label for="nome">Nome:</label> 
-					<input id="nome" type="text" th:field="*{nome}" class="form-control form-control-sm" />
-					<label for="nome">Descrição:</label> 
-					<input id="nome" type="text" th:field="*{descricao}" class="form-control form-control-sm" />
-				</div>
-
-
-				<button type="submit" class="btn btn-primary">Salvar</button>
-			</form>
+	<main>
+		<div class="container">
+			<h1 class="display-4" align="center">Cadastro de Fabricantes</h1>
+			<div>
+				<form action="/fabricantes" method="POST" th:object="${fabricante}">
+					<div th:replace="fragments/alert-error :: div" />
+					<div th:replace="fragments/alert-sucsses :: div" />
+					<input type="hidden" th:field="*{id}" />
+					<div class="form-group">
+						<label for="nome">Nome:</label> 
+						<input id="nome" type="text" th:field="*{nome}" class="form-control form-control-sm" />
+						<label for="nome">Descrição:</label> 
+						<input id="nome" type="text" th:field="*{descricao}" class="form-control form-control-sm" />
+					</div>
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</form>
+			</div>
 		</div>
-	</div>
-	<div class="footer mt-auto py-1" align="center">
+	</main>
+	<div class="footer mt-auto py-3" align="center">
 		<div class="container" th:replace="fragments/footer :: footer" />
 	</div>
 </body>

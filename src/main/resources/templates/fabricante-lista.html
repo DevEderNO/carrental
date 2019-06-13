@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" class="h-100">
 
 <head>
 	<meta charset="UTF-8">
@@ -17,11 +17,12 @@
 		crossorigin="anonymous"></script>
 </head>
 
-<body class="d-flex flex-column mx-auto">
+<body class="d-flex flex-column h-100">
+	<header>
+		<div th:replace="fragments/header :: header" class="mt-auto" />
+	</header>
 
-	<div th:replace="fragments/header :: header" class="mt-auto" />
-
-	<main class="flex-shrink-0 mt-auto">
+	<main class="container-fluid container-lg">
 		<div class="container">
 			<div class="center" align="center">
 				<h1 class="display-4">Lista de Fabricantes</h1>
@@ -54,7 +55,7 @@
 		</div>
 	</main>
 
-	<div class="footer mt-auto py-1" align="center">
+	<div class="footer mt-auto py-3" align="center">
 		<div class="container" th:replace="fragments/footer :: footer" />
 	</div>
 </body>

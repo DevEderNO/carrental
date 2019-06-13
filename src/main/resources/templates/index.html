@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" class="h-100">
 
 <head>
 	<meta charset="utf-8">
@@ -19,13 +19,19 @@
 </head>
 </head>
 
-<body class="">
-	<div th:replace="fragments/header :: header" />
+<body class="d-flex flex-column h-100 w-100 text-center">
 
-	<div class="container-fluid container-lg">
+	<header>
+		<div th:replace="fragments/header :: header" class="mt-auto"/>
+	</header>
 
+	<div class="cover-container mt-auto mx-auto col-md-5">
+		<main role="main" class="inner cover">
+			<h1 class="cover-heading">CarRental</h1>
+			<p class="lead">CarRental é um projeto desenvolvido para a Pós-Graduação da faculdade DHELTA, 
+				que tem por objetivo fixar o conhecimento aprendido no módulo de SpringMVC</p>
+		</main>
 	</div>
-
 	<div class="footer mt-auto py-3" align="center">
 		<div class="container" th:replace="fragments/footer :: footer" />
 	</div>

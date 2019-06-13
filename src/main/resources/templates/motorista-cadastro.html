@@ -1,52 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" class="h-100">
+
 <head>
-<meta charset="UTF-8">
-<title>Cadastro de Motoristas</title>
-<link rel="stylesheet"	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"	crossorigin="anonymous"></script>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"	crossorigin="anonymous"></script>
-<script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"	crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<title>Cadastro de Motoristas</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
 </head>
 
-<body class="">
+<body class="d-flex flex-column h-100">
 
-	<div th:replace="fragments/header :: header" />
+	<header>
+		<div th:replace="fragments/header :: header" />
+	</header>
 
-	<div class="container">
-		<h1 class="display-4" align="center">Cadastro de Motoristas</h1>
-
-		
-		<div>
-			<form action="/motoristas" method="POST" th:object="${motorista}">
-				
-
-				<div th:replace="fragments/alert-error :: div" />
-
-				<div th:replace="fragments/alert-sucsses :: div" />
-
-				<input type="hidden" th:field="*{id}" />
-				<div class="form-group">
-					<label for="nome">Nome:</label> 
-					<input id="nome" type="text" th:field="*{nome}" class="form-control form-control-sm" />
-					<label for="cpf">CPF:</label> 
-					<input id="cpf" type="text" th:field="*{cpf}" class="form-control form-control-sm" />
-					<label for="cnh">CNH:</label> 
-					<input id="cnh" type="text" th:field="*{cnh}" class="form-control form-control-sm" />
-					<label for="sexo">Sexo:</label> 
-					<select name="sexo"
-						id="sexo" th:field="*{sexo}" class="form-control form-control-sm col-md-2">
-						<option th:each="sexo : ${listarTodosSexos}"
-							th:text="${sexo.descricao}" th:value="${sexo}"></option>
-					</select>
-				</div>
-
-				<button type="submit" class="btn btn-primary">Salvar</button>
-			</form>
+	<main>
+		<div class="container">
+			<h1 class="display-4" align="center">Cadastro de Motoristas</h1>
+			<div>
+				<form action="/motoristas" method="POST" th:object="${motorista}">
+					<div th:replace="fragments/alert-error :: div" />
+					<div th:replace="fragments/alert-sucsses :: div" />
+					<input type="hidden" th:field="*{id}" />
+					<div class="form-group">
+						<label for="nome">Nome:</label>
+						<input id="nome" type="text" th:field="*{nome}" class="form-control form-control-sm" />
+						<label for="cpf">CPF:</label>
+						<input id="cpf" type="number" th:field="*{cpf}" class="form-control form-control-sm" 
+								maxlength="11" minlength="11"/>
+						<label for="cnh">CNH:</label>
+						<input id="cnh" type="text" th:field="*{cnh}" class="form-control form-control-sm" />
+						<label for="sexo">Sexo:</label>
+						<select name="sexo" id="sexo" th:field="*{sexo}" class="form-control form-control-sm col-md-2">
+							<option th:each="sexo : ${listarTodosSexos}" th:text="${sexo.descricao}" th:value="${sexo}">
+							</option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</form>
+			</div>
 		</div>
-	</div>
+	</main>
 	<div class="footer mt-auto py-3" align="center">
-			<div class="container" th:replace="fragments/footer :: footer" />
+		<div class="container" th:replace="fragments/footer :: footer" />
 	</div>
 </body>
+
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" class="h-100">
 
 <head>
 	<meta charset="UTF-8">
@@ -17,46 +17,50 @@
 		crossorigin="anonymous"></script>
 </head>
 
-<body class="">
+<body class="d-flex flex-column h-100">
 
-	<div th:replace="fragments/header :: header" />
+	<header>
+		<div th:replace="fragments/header :: header" class="mt-auto" />
+	</header>
 
-	<div class="container">
-		<h1 class="display-4" align="center">Cadastro de Modelos</h1>
+	<main>
+		<div class="container">
+			<h1 class="display-4" align="center">Cadastro de Modelos</h1>
+	
+			<div>
+				<form action="/modelos" method="POST" th:object="${modelo}">
+	
+					<div th:replace="fragments/alert-error :: div" />
+	
+					<div th:replace="fragments/alert-sucsses :: div" />
+	
+					<input type="hidden" th:field="*{id}" />
+					<div class="form-group">
+						<label for="descricao">Descrição:</label>
+						<input id="descricao" type="text" th:field="*{descricao}" class="form-control form-control-sm" />
+	
+						<label for="categoria">Categoria:</label>
+						<select name="categoria" id="categoria" th:field="*{categoria}"
+							class="form-control form-control-sm col-md-2">
+							<option th:each="categoria : ${listarTodasCategorias}" th:text="${categoria.descricao}"
+								th:value="${categoria}">
+							</option>
+						</select>
 
-		<div>
-			<form action="/modelos" method="POST" th:object="${modelo}">
-
-				<div th:replace="fragments/alert-error :: div" />
-
-				<div th:replace="fragments/alert-sucsses :: div" />
-
-				<input type="hidden" th:field="*{id}" />
-				<div class="form-group">
-					<label for="descricao">Descrição:</label>
-					<input id="descricao" type="text" th:field="*{descricao}" class="form-control form-control-sm" />
-
-					<label for="categoria">Categoria:</label>
-					<select name="categoria" id="categoria" th:field="*{categoria}"
-						class="form-control form-control-sm col-md-2">
-						<option th:each="categoria : ${listarTodasCategorias}" th:text="${categoria.descricao}"
-							th:value="${categoria}">
-						</option>
-					</select>
-
-					<label for="fabricante">Fabricante:</label>
-					<select name="fabricante" id="fabricante" th:field="*{fabricante}"
-						class="form-control form-control-sm col-md-2">
-						<option th:each="fabricante : ${listarTodosFabricantes}" th:text="${fabricante.nome}"
-							th:value="${fabricante.id}"></option>
-					</select>
-				</div>
-
-
-				<button type="submit" class="btn btn-primary">Salvar</button>
-			</form>
+						<label for="fabricante">Fabricante:</label>
+						<select name="fabricante" id="fabricante" th:field="*{fabricante}"
+							class="form-control form-control-sm col-md-2">
+							<option th:each="fabricante : ${listarTodosFabricantes}" th:text="${fabricante.nome}"
+								th:value="${fabricante.id}"></option>
+						</select>
+					</div>
+	
+	
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</form>
+			</div>
 		</div>
-	</div>
+	</main>
 	<div class="footer mt-auto py-3" align="center">
 		<div class="container" th:replace="fragments/footer :: footer" />
 	</div>

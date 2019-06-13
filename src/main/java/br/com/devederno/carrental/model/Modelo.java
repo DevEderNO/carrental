@@ -11,8 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Proxy;
-
 import br.com.devederno.carrental.model.type.Categoria;
 
 @Entity

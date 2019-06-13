@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" class="h-100">
 
 <head>
     <meta charset="UTF-8">
@@ -17,7 +17,7 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body class="">
+<body class="d-flex flex-column h-100">
 
     <div th:replace="fragments/header :: header" />
 
@@ -34,7 +34,7 @@
                 <input type="hidden" th:field="*{id}" />
                 <div class="form-group">
                     <label for="valorTotal">Valor Total:</label>
-                    <input id="valorTotal" type="text" min="0.0" max="100000.0" step="0.01" th:field="*{valorTotal}"
+                    <input id="valorTotal" type="number" min="0.0" max="100000.0" step="0.01" th:field="*{valorTotal}"
                         class="form-control form-control-sm" />
 
                     <label for="dataDeLocacao">Data de Locação:</label>

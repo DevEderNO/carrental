@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" class="h-100">
 
 <head>
 	<meta charset="UTF-8">
@@ -17,42 +17,46 @@
 		crossorigin="anonymous"></script>
 </head>
 
-<body class="">
+<body class="d-flex flex-column h-100">
 
-	<div th:replace="fragments/header :: header" />
+	<header>
+		<div th:replace="fragments/header :: header" class="mt-auto"/>
+	</header>
 
-	<div class="container">
-		<div class="center" align="center">
-			<h1 class="display-4">Lista de Modelos</h1>
+	<main>
+		<div class="container">
+			<div class="center" align="center">
+				<h1 class="display-4">Lista de Modelos</h1>
+			</div>
+	
+			<div>
+				<table class="table table-hover table-bordered table-sm">
+					<thead class="thead-dark">
+						<tr align="center">
+							<th scope="col">Id</th>
+							<th scope="col">Descrição</th>
+							<th scope="col">Categoria</th>
+							<th scope="col">Fabricante</th>
+							<th scope="col">Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="modelo : ${modelos}">
+							<td align="center" th:text="${modelo.id}"></td>
+							<td th:text="${modelo.descricao}"></td>
+							<td align="center" th:text="${modelo.categoria.descricao}"></td>
+							<td align="center" th:text="${modelo.fabricante.nome}"></td>
+							<td align="center"><a class="btn btn-primary btn-sm"
+									th:href="@{modelos/editar/{id}(id=${modelo.id})}">Editar</a>
+								<a class="btn btn-danger btn-sm"
+									th:href="@{modelos/excluir/{id}(id=${modelo.id})}">Excluir</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
-
-		<div>
-			<table class="table table-hover table-bordered table-sm">
-				<thead class="thead-dark">
-					<tr align="center">
-						<th scope="col">Id</th>
-						<th scope="col">Descrição</th>
-						<th scope="col">Categoria</th>
-						<th scope="col">Fabricante</th>
-						<th scope="col">Ação</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="modelo : ${modelos}">
-						<td align="center" th:text="${modelo.id}"></td>
-						<td th:text="${modelo.descricao}"></td>
-						<td align="center" th:text="${modelo.categoria.descricao}"></td>
-						<td align="center" th:text="${modelo.fabricante.nome}"></td>
-						<td align="center"><a class="btn btn-primary btn-sm"
-								th:href="@{modelos/editar/{id}(id=${modelo.id})}">Editar</a>
-							<a class="btn btn-danger btn-sm"
-								th:href="@{modelos/excluir/{id}(id=${modelo.id})}">Excluir</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+	</main>
 
 	<div class="footer mt-auto py-3" align="center">
 		<div class="container" th:replace="fragments/footer :: footer" />
