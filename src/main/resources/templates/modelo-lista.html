@@ -42,7 +42,8 @@
 							<td align="center"><a class="btn btn-primary btn-sm"
 									th:href="@{modelos/editar/{id}(id=${modelo.id})}">Editar</a>
 								<a class="btn btn-danger btn-sm"
-									th:href="@{modelos/excluir/{id}(id=${modelo.id})}">Excluir</a>
+									th:href="@{modelos/excluir/{id}(id=${modelo.id})}"
+									onclick="return confirm('Confirma a exclusão ?')">Excluir</a>
 							</td>
 						</tr>
 					</tbody>

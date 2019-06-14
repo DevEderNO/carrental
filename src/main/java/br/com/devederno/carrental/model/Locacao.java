@@ -47,7 +47,6 @@ public class Locacao {
 
 	public Locacao() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Locacao(

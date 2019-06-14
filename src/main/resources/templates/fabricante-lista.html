@@ -38,8 +38,8 @@
 							<td th:text="${fabricante.descricao}"></td>
 							<td align="center">
 								<a class="btn btn-primary btn-sm" th:href="@{fabricantes/editar/{id}(id=${fabricante.id})}">Editar</a>
-								<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluirModal"
-									th:href="@{fabricantes/excluir/{id}(id=${fabricante.id})}">Excluir</button>
+								<a class="btn btn-danger btn-sm" onclick="return confirm('Confirma a exclusão ?')"
+									th:href="@{fabricantes/excluir/{id}(id=${fabricante.id})}">Excluir</a>
 							</td>
 						</tr>
 					</tbody>
@@ -51,9 +51,6 @@
 	<div class="footer mt-auto py-3" align="center">
 		<div class="container" th:replace="fragments/footer :: footer" />
 	</div>
-	
-	<!-- Modal -->
-	<div th:replace="fragments/modal :: div"/>
 </body>
 
 </html>

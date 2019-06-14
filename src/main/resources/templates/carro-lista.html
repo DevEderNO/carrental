@@ -42,7 +42,8 @@
                         <td th:text="${carro.modelo.descricao}" align="center"></td>
                         <td align="center">
                             <a class="btn btn-primary btn-sm" th:href="@{carros/editar/{id}(id=${carro.id})}">Editar</a>
-                            <a class="btn btn-danger btn-sm"  th:href="@{carros/excluir/{id}(id=${carro.id})}">Excluir</a>
+                            <a class="btn btn-danger btn-sm"  th:href="@{carros/excluir/{id}(id=${carro.id})}"
+                            onclick="return confirm('Confirma a exclusão ?')">Excluir</a>
                         </td>
                     </tr>
                 </tbody>

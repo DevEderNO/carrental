@@ -46,7 +46,8 @@
 							<td align="center"><a class="btn btn-primary btn-sm"
 								th:href="@{locacoes/editar/{id}(id=${locacao.id})}">Editar</a>
 								<a class="btn btn-danger btn-sm"
-								th:href="@{locacoes/excluir/{id}(id=${locacao.id})}">Excluir</a>
+								th:href="@{locacoes/excluir/{id}(id=${locacao.id})}"
+								onclick="return confirm('Confirma a exclusão ?')">Excluir</a>
 							</td>
 						</tr>
 					</tbody>
