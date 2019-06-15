@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +19,7 @@ import br.com.devederno.carrental.model.Fabricante;
 import br.com.devederno.carrental.model.Modelo;
 import br.com.devederno.carrental.model.type.Categoria;
 import br.com.devederno.carrental.repository.FabricanteRepository;
-import br.com.devederno.carrental.repository.ModeloRepository;
+import br.com.devederno.carrental.service.ModeloService;
 
 @Controller
 @RequestMapping("/modelos")
@@ -31,7 +30,7 @@ public class ModeloControle {
 	private final static String NOVO = "/novo";
 
 	@Autowired
-	private ModeloRepository modeloRepository;
+	private ModeloService modeloService;
 	
 	@Autowired
 	private FabricanteRepository fabricanteRepository;
@@ -61,10 +60,10 @@ public class ModeloControle {
 		}
 
 		if (modelo.getId() == null) {
-			modeloRepository.save(modelo);
+			modeloService.incluir(modelo);
 			redirectAttributes.addFlashAttribute("mensagem", "Inclusão realizada com sucesso!");
 		} else {
-			modeloRepository.save(modelo);
+			modeloService.editar(modelo);
 			redirectAttributes.addFlashAttribute("mensagem", "Alteração realizada com sucesso");
 		}
 
@@ -74,21 +73,21 @@ public class ModeloControle {
 	@GetMapping
 	public ModelAndView lista() {
 		ModelAndView modelAndView = new ModelAndView(MODELO_LISTA);
-		modelAndView.addObject(MODELOS, modeloRepository.findAll());
+		modelAndView.addObject(MODELOS, modeloService.listar());
 		return modelAndView;
 	}
 
 	@GetMapping("/editar/{id}")
 	public ModelAndView editar(@PathVariable("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView(MODELO_CADASTRO);
-		modelAndView.addObject(modeloRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(0)));
+		modelAndView.addObject(modeloService.pesquisarPorId(id));
 		return modelAndView;
 	}
 
 	@GetMapping("/excluir/{id}")
 	public ModelAndView excluir(@PathVariable("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView("redirect:/" + MODELOS);
-		modeloRepository.deleteById(id);
+		modeloService.excluir(id);
 		return modelAndView;
 	}
 

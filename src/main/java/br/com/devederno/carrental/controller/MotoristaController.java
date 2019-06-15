@@ -3,7 +3,6 @@ package br.com.devederno.carrental.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.devederno.carrental.model.Motorista;
 import br.com.devederno.carrental.model.type.Sexo;
-import br.com.devederno.carrental.repository.MotoristaRepository;
+import br.com.devederno.carrental.service.MotoristaService;
 
 @Controller
 @RequestMapping("/motoristas")
@@ -28,7 +27,7 @@ public class MotoristaController {
 	private final static String NOVO = "/novo";
 
 	@Autowired
-	private MotoristaRepository motoristaRepository;
+	private MotoristaService motoristaService;
 
 	@RequestMapping(NOVO)
 	public ModelAndView novo() {
@@ -50,10 +49,10 @@ public class MotoristaController {
 		}
 
 		if (motorista.getId() == null) {
-			motoristaRepository.save(motorista);
+			motoristaService.incluir(motorista);
 			redirectAttributes.addFlashAttribute("mensagem", "Inclusão realizada com sucesso!");
 		} else {
-			motoristaRepository.save(motorista);
+			motoristaService.editar(motorista);
 			redirectAttributes.addFlashAttribute("mensagem", "Alteração realizada com sucesso");
 		}
 
@@ -63,21 +62,21 @@ public class MotoristaController {
 	@GetMapping
 	public ModelAndView lista() {
 		ModelAndView modelAndView = new ModelAndView(MOTORISTA_LISTA);
-		modelAndView.addObject(MOTORISTAS, motoristaRepository.findAll());
+		modelAndView.addObject(MOTORISTAS, motoristaService.listar());
 		return modelAndView;
 	}
 
 	@GetMapping("/editar/{id}")
 	public ModelAndView editar(@PathVariable("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView(MOTORISTA_CADASTRO);
-		modelAndView.addObject(motoristaRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(0)));
+		modelAndView.addObject(motoristaService.pesquisarPorId(id));
 		return modelAndView;
 	}
 
 	@GetMapping("/excluir/{id}")
 	public ModelAndView excluir(@PathVariable("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView("redirect:/" + MOTORISTAS);
-		motoristaRepository.deleteById(id);
+		motoristaService.excluir(id);
 		return modelAndView;
 	}
 	

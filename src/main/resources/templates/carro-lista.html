@@ -1,59 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" class="h-100">
-
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layoutBase}">
 <head>
-    <meta charset="UTF-8">
-    <title>Cadastro de Modelos</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>Cadastro de Carros</title>
 </head>
 
-<body class="d-flex flex-column h-100">
-
-    <header>
-        <div th:replace="fragments/header :: header" class="mt-auto"/>
-    </header>
-
-    <div class="container">
-        <div class="center" align="center">
-            <h1 class="display-4">Lista de Modelos</h1>
-        </div>
-
-        <div>
-            <table class="table table-hover table-bordered table-sm">
-                <thead class="thead-dark">
-                    <tr align="center">
-                        <th>Id</th>
-                        <th>Placa</th>
-                        <th>Chassi</th>
-                        <th>R$/Diária</th>
-                        <th>Modelo</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="carro : ${carros}">
-                        <td align="center" th:text="${carro.id}"></td>
-                        <td th:text="${carro.placa}" align="center"></td>
-                        <td th:text="${carro.chassi}" align="center"></td>
-                        <td th:text="${#numbers.formatDecimal(carro.valorDaDiaria,0,'POINT',2,'COMMA')}" align="center"></td>
-                        <td th:text="${carro.modelo.descricao}" align="center"></td>
-                        <td align="center">
-                            <a class="btn btn-primary btn-sm" th:href="@{carros/editar/{id}(id=${carro.id})}">Editar</a>
-                            <a class="btn btn-danger btn-sm"  th:href="@{carros/excluir/{id}(id=${carro.id})}"
-                            onclick="return confirm('Confirma a exclusão ?')">Excluir</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="footer mt-auto py-3" align="center">
-        <div class="container" th:replace="fragments/footer :: footer" />
-    </div>
+<body>
+    <section layout:fragment="conteudo">
+        <div class="container">
+            <div class="center" align="center">
+                <h1 class="display-4">Lista de Carros</h1>
+            </div>
+        
+            <div>
+                <table class="table table-hover table-bordered table-sm">
+                    <thead class="thead-dark">
+                        <tr align="center">
+                            <th>Id</th>
+                            <th>Placa</th>
+                            <th>Chassi</th>
+                            <th>R$/Diária</th>
+                            <th>Modelo</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="carro : ${carros}">
+                            <td align="center" th:text="${carro.id}"></td>
+                            <td th:text="${carro.placa}" align="center"></td>
+                            <td th:text="${carro.chassi}" align="center"></td>
+                            <td th:text="${#numbers.formatDecimal(carro.valorDaDiaria,0,'POINT',2,'COMMA')}" align="center"></td>
+                                <td th:text="${carro.modelo.descricao}" align="center"></td>
+                                <td align="center">
+                                    <a class="btn btn-primary btn-sm" th:href="@{carros/editar/{id}(id=${carro.id})}">Editar</a>
+                                    <a class="btn btn-danger btn-sm"  th:href="@{carros/excluir/{id}(id=${carro.id})}"
+                                    onclick="return confirm('Confirma a exclusão ?')">Excluir</a>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(carros)}">
+                                <td colspan="8" align="center">Nenhum Carro Cadastrado!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </section>
 </body>
 
 </html>

@@ -6,7 +6,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +19,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.devederno.carrental.model.Carro;
 import br.com.devederno.carrental.model.Locacao;
 import br.com.devederno.carrental.model.Motorista;
-import br.com.devederno.carrental.repository.CarroRepository;
-import br.com.devederno.carrental.repository.LocacaoRepository;
-import br.com.devederno.carrental.repository.MotoristaRepository;
+import br.com.devederno.carrental.service.CarroService;
+import br.com.devederno.carrental.service.LocacaoService;
+import br.com.devederno.carrental.service.MotoristaService;
 
 @Controller
 @RequestMapping("/locacoes")
@@ -34,13 +33,13 @@ public class LocacaoController {
 	private final static String NOVO = "/novo";
 
 	@Autowired
-	private LocacaoRepository locacaoRepository;
+	private LocacaoService locacaoService;
 	
 	@Autowired
-	private MotoristaRepository motoristaRepository;
+	private MotoristaService motoristaService;
 	
 	@Autowired
-	private CarroRepository carroRepository ;
+	private CarroService carroService ;
 
 	@RequestMapping(NOVO)
 	public ModelAndView novo() {
@@ -54,12 +53,12 @@ public class LocacaoController {
 	
 	@ModelAttribute(name = "listarTodosMotoristas")
 	public List<Motorista> listarTodosMotoristas(){
-		return motoristaRepository.findAll();
+		return motoristaService.listar();
 	}
 	
 	@ModelAttribute(name = "listarTodosCarros")
 	public List<Carro> listarTodosCarros(){
-		return carroRepository.findAll();
+		return carroService.listar();
 	}
 
 	@PostMapping
@@ -70,10 +69,10 @@ public class LocacaoController {
 		}
 
 		if (locacao.getId() == null) {
-			locacaoRepository.save(locacao);
+			locacaoService.incluir(locacao);
 			redirectAttributes.addFlashAttribute("mensagem", "Inclusão realizada com sucesso!");
 		} else {
-			locacaoRepository.save(locacao);
+			locacaoService.editar(locacao);
 			redirectAttributes.addFlashAttribute("mensagem", "Alteração realizada com sucesso");
 		}
 
@@ -83,21 +82,21 @@ public class LocacaoController {
 	@GetMapping
 	public ModelAndView lista() {
 		ModelAndView modelAndView = new ModelAndView(LOCACAO_LISTA);
-		modelAndView.addObject(LOCACOES, locacaoRepository.findAll());
+		modelAndView.addObject(LOCACOES, locacaoService.listar());
 		return modelAndView;
 	}
 
 	@GetMapping("/editar/{id}")
 	public ModelAndView editar(@PathVariable("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView(LOCACAO_CADASTRO);
-		modelAndView.addObject(locacaoRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(0)));
+		modelAndView.addObject(locacaoService.pesquisarPorId(id));
 		return modelAndView;
 	}
 
 	@GetMapping("/excluir/{id}")
 	public ModelAndView excluir(@PathVariable("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView("redirect:/" + LOCACOES);
-		locacaoRepository.deleteById(id);
+		locacaoService.excluir(id);
 		return modelAndView;
 	}
 	

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.devederno.carrental.model.Carro;
 import br.com.devederno.carrental.model.Modelo;
-import br.com.devederno.carrental.repository.CarroRepository;
-import br.com.devederno.carrental.repository.ModeloRepository;
+import br.com.devederno.carrental.service.CarroService;
+import br.com.devederno.carrental.service.ModeloService;
 
 @Controller
 @RequestMapping("/carros")
@@ -31,10 +30,10 @@ public class CarroController {
 	private final static String NOVO = "/novo";
 	
 	@Autowired
-	private CarroRepository carroRepository;
+	private CarroService carroService;
 	
 	@Autowired
-	private ModeloRepository modeloRepository;
+	private ModeloService modeloService;
 	
 	@RequestMapping(NOVO)
 	public ModelAndView novo(){
@@ -45,7 +44,7 @@ public class CarroController {
 	
 	@ModelAttribute(name = "listarTodosModelos")
 	public List<Modelo> listarTodosModelos(){
-		return modeloRepository.findAll();
+		return modeloService.listar();
 	}
 	
 	@PostMapping
@@ -56,10 +55,10 @@ public class CarroController {
 		}
 		
 		if(carro.getId() == null){
-			carroRepository.save(carro);
+			carroService.incluir(carro);
 			redirectAttributes.addFlashAttribute("mensagem","Inclusão realizada com sucesso!");
 		}else{
-			carroRepository.save(carro);
+			carroService.editar(carro);
 			redirectAttributes.addFlashAttribute("mensagem","Alteração realizada com sucesso");
 		}
 		
@@ -69,21 +68,21 @@ public class CarroController {
 	@GetMapping
 	public ModelAndView lista(){
 		ModelAndView modelAndView = new ModelAndView(CARRO_LISTA);
-		modelAndView.addObject(CARROS,carroRepository.findAll());
+		modelAndView.addObject(CARROS,carroService.listar());
 		return modelAndView;
 	}
 	
 	@GetMapping("/editar/{id}")
 	public ModelAndView editar(@PathVariable("id") Long id){
 		ModelAndView modelAndView = new ModelAndView(CARRO_CADASTRO);
-		modelAndView.addObject(carroRepository.findById(id).orElseThrow(()-> new EmptyResultDataAccessException(0)));
+		modelAndView.addObject(carroService.pesquisarPorId(id));
 		return modelAndView;
 	}
 	
 	@GetMapping("/excluir/{id}")
 	public ModelAndView excluir(@PathVariable("id") Long id){
 		ModelAndView modelAndView = new ModelAndView("redirect:/"+CARROS);
-		carroRepository.deleteById(id);
+		carroService.excluir(id);
 		return modelAndView;
 	}
 	
