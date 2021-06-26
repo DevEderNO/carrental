@@ -10,7 +10,7 @@
 <body>
 	<section layout:fragment="conteudo">
 		<div class="container">
-			<h1 class="display-4" align="center">Cadastro de Motoristas</h1>
+			<h1>Cadastro de Motoristas</h1>
 			<div>
 				<form action="/motoristas" method="POST" th:object="${motorista}">
 					<div th:replace="alert-error :: div" />

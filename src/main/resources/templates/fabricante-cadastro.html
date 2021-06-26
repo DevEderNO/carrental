@@ -9,7 +9,7 @@
 <body>
 	<section layout:fragment="conteudo">
 		<div class="container">
-			<h1 class="display-4" align="center">Cadastro de Fabricantes</h1>
+			<h1>Cadastro de Fabricantes</h1>
 			<div>
 				<form action="/fabricantes" method="POST" th:object="${fabricante}">
 					<div th:replace="alert-error :: div" />

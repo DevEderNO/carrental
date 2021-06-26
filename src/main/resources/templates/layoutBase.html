@@ -1,29 +1,35 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      class="h-100">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  class="h-100"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link th:href="@{/styles/layout-base.css}" rel="stylesheet" />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
-
-<body class="h-100">
-    <header th:replace="cabecalho" class="fixed-top">
-        
-    </header>
+  <body class="h-100">
+    <header th:replace="cabecalho" class="fixed-top"></header>
     <main>
-        <section layout:fragment="conteudo" class="container mt-4 pb-4 mb-2">
-            <!-- corpo / conteudo -->
-        </section>
+      <section layout:fragment="conteudo" class="container mt-4 pb-4 mb-2">
+        <!-- corpo / conteudo -->
+      </section>
     </main>
     <footer class="footer bg-light mt-auto py-1 text-center fixed-bottom">
-        @2019 DevEderNo.
+      @2019 DevEderNo.
     </footer>
 
     <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
     <script th:src="@{/webjars/popper.js/1.11.1/dist/popper.js}"></script>
     <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
-</body>
-
+  </body>
 </html>
